@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Maison Élara"
+description = "A premium Arabic RTL bridal boutique storefront for Syria, featuring an editorial wedding dress collection, wishlist, and frontend-only reservation and appointment booking experiences."
+version = "1.0.0"
+id = "artifacts/maison-elara"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18111
+
+[services.development]
+run = "pnpm --filter @workspace/maison-elara run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/maison-elara", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/maison-elara/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18111"
+BASE_PATH = "/"
